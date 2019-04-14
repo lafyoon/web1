@@ -1,0 +1,1457 @@
+<div></div>
+<div><CSS>
+<!doctype html>
+<html>
+<head>
+  <title>WEB1 - JavaScript</title>
+  <meta charset="utf-8">
+</head>
+
+/**
+ * Huge credits to CheesyMonster.
+ * There are 25 levels.
+ * More levels are very hard, but are levels are beatable.
+ * You can make your own levels.
+ *
+ * Play the new "ESCAPE THE PRISON - 2" on
+ *
+ * https://www.khanacademy.org/computer-programming/escape-the-prison-2/4715137228963840
+ *
+ * with all your needs.
+ *
+ **/
+
+ //Codings
+ {
+
+/**Block Chart:
+
+p = Player
+e = Enemy
+
+Building Blocks:
+n = Normal dull gray block
+b = Brick
+v = Tree leaves
+d = Dirt
+g = Grass
+r = Rock or cobblestone
+w = wood
+t = Treetrunk
+
+Death Blocks:
+a = Acid
+s = Spike
+l = Lava
+
+Physic Blocks:
+P = Portal
+W = Water
+T = Trampoline
+**/
+
+//var
+{
+//Arrays
+var blocks = [];
+var clouds = [];
+var keys = [];
+
+//Array Index
+var I = 0;
+var J = 0;
+
+//Screen Control
+var level = 0;
+var page = "Intro";
+var fade = 0;
+var fadeSpeed = 1;
+var sunSize = 60;
+var sunSpeed = 1;
+
+//Player Spawn Points
+var spawnX = 200;
+var spawnY = 200;
+}
+
+//Levels-make your own levels here
+var levels = [
+[
+
+    "bbbbbbbbbbbbbbbbbbbb",
+    "b                   ",
+    "b                   ",
+    "b                   ",
+    "P                   ",
+    "bbsssbbb          bb",
+    "bbbbbbbb          bb",
+    "bb                bb",
+    "bb                bb",
+    "bb           baaaabb",
+    "bb           bbbbbbb",
+    "bb           bbbbbbb",
+    "bb    bsssbbbbbbbbbb",
+    "bb   bbbbbbbbbbbbbbb",
+    "bb                  ",
+    "bb                  ",
+    "bbb                 ",
+    "bb                  ",
+    "bb      sss  sss   p",
+    "bbbbbbbbbbbbbbbbbbbb",
+    ],//l-1
+[
+
+    "bbbbbbbbbbbbbbbbbbbb",
+    "b                 Pb",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                 Tb",
+    "b                  b",
+    "b                  b",
+    "bp                 b",
+    "b                  b",
+    "b            T     b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b       T          b",
+    "b  bssssbaaaaaaaaaab",
+    "bbbbbbbbbbbbbbbbbbbb",
+    ],//l-2
+[
+
+    "bbbbbbbbbbbbbbbbbbbb",
+    "b                  b",
+    "b                  b",
+    "bp                 b",
+    "bbbb               b",
+    "b                  b",
+    "b                  b",
+    "b  e     e    s    b",
+    "bbbbbbbbbbbbbbbb   b",
+    "b                  b",
+    "b                  b",
+    "b     b   e    e   b",
+    "b     bbbbbbbbbbbbbb",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b  ssssssssssssssssb",
+    "bP bbbbbbbbbbbbbbbbb",
+    "bbbbbbbbbbbbbbbbbbbb",
+    ],//l-3
+[
+
+    "bbbbbbbbbbbbbbbbbbbb",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                 Pb",
+    "b        ss    bbbbb",
+    "b        bb        b",
+    "b                  b",
+    "baaaab             b",
+    "bbbbbbbb           b",
+    "bp                 b",
+    "b            b    eb",
+    "b            bbbbbbb",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b       T          b",
+    "b  be   baaaaaaaaaab",
+    "bbbbbbbbbbbbbbbbbbbb",
+    ],//l-4
+[
+
+    "bbbbbbbbbbbbbbbbbbbb",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                b b",
+    "b                b b",
+    "be   e b         b b",
+    "bbbbbbbb         b b",
+    "b                b b",
+    "b           sssssb b",
+    "b          bbbbbbb b",
+    "b                b b",
+    "b                b b",
+    "b                bPb",
+    "bp bssssbaaaaaaaabbb",
+    "bbbbbbbbbbbbbbbbbbbb",
+    ],//l-5
+[
+
+    "bbbbbbbbbbbbbbbbbbbb",
+    "bP                 b",
+    "bb                 b",
+    "b                  b",
+    "b bb               b",
+    "b  b               b",
+    "bb b               b",
+    "b  b               b",
+    "b bb               b",
+    "b  b               b",
+    "bb   ssb           b",
+    "bbbbbbbb           b",
+    "b                  b",
+    "b          Tssss   b",
+    "b          bbbbbb  b",
+    "b                  b",
+    "b                T b",
+    "b                b b",
+    "b e   e  e        pb",
+    "bbbbbbbbbbbbbbbbbbbb",
+    ],//l-6
+[
+
+    "bbbbbbbbbbbbbbbbbbbb",
+    "b            P     b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b         sssT     b",
+    "b         bbbb     b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b sss T            b",
+    "b bbbbbb           b",
+    "b              ssssb",
+    "b             bbbbbb",
+    "b                  b",
+    "b    bbbbbb        b",
+    "bp                 b",
+    "bbaaaaaaaaaaaaaaaaab",
+    "bbbbbbbbbbbbbbbbbbbb",
+    ],//l-7
+[   "bbbbbbbbbbbbbbbbbbbb",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "bp                Pb",
+    "bbaaaaabaaaaaabaaabb",
+    "bbbbbbbbbbbbbbbbbbbb",
+
+    ],//l-8
+[   "bbbbbbbbbbbbbbbbbbbb",
+    "bP                 b",
+    "bbbbbbbb           b",
+    "b                  b",
+    "b                  b",
+    "b              ssssb",
+    "b            bbbbbbb",
+    "b                  b",
+    "bssss              b",
+    "bbbbbbb            b",
+    "b                  b",
+    "b              ssssb",
+    "b            bbbbbbb",
+    "b                  b",
+    "bsss               b",
+    "bbbbb              b",
+    "b                  b",
+    "b         p        b",
+    "baaaaaaaabbaaaaaaaab",
+    "bbbbbbbbbbbbbbbbbbbb",],//l-9
+[   "bbbbbbbbbbbbbbbbbbbb",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "bp  ss             b",
+    "bbbbbb             b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "bsssssssssPssssssssb",
+    "bbbbbbbbbbbbbbbbbbbb",
+    "bbbbbbbbbbbbbbbbbbbb",],//l-10
+[   "bbbbbbbbbbbbbbbbbbbb",
+    "b                  b",
+    "b                  b",
+    "be e e e e e e e e b",
+    "bbbbbbbbbbbbbbbbbbbb",
+    "b                  b",
+    "b                  b",
+    "b          b       b",
+    "b                  b",
+    "b    b             b",
+    "b            b     b",
+    "b                 sb",
+    "bb                bb",
+    "b                  b",
+    "b                  b",
+    "b    b             b",
+    "b                  b",
+    "bp                Pb",
+    "bbaaaaaaaaaaaaaaaabb",
+    "bbbbbbbbbbbbbbbbbbbb",],//l-11
+[   "bbbbbbbbbbbbbbbbbbbb",
+    "b                  b",
+    "b                  b",
+    "b                 Pb",
+    "b                 bb",
+    "b                  b",
+    "b            s     b",
+    "b          bbbbb   b",
+    "b                  b",
+    "b                  b",
+    "bsssssbT           b",
+    "bbbbbbbb           b",
+    "b                  b",
+    "b            bbb   b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "bp                 b",
+    "bb  ss   ss    ss Tb",
+    "bbbbbbbbbbbbbbbbbbbb",],//l-12
+[   "bbbbbbbbbbbbbbbbbbbb",
+    "bp                 b",
+    "bb                 b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b   sss   sss      b",
+    "b   bbbbbbbbb      b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                  b",
+    "b                 Pb",
+    "bbaaaaaaaaaaaaaaaabb",
+    "bbbbbbbbbbbbbbbbbbbb",],//l-13
+[   "b                   ",
+    "b                   ",
+    "b                   ",
+    "b                   ",
+    "b                   ",
+    "b                   ",
+    "b                   ",
+    "b                   ",
+    "b                   ",
+    "b                   ",
+    "b              P    ",
+    "b              v    ",
+    "b             vvv   ",
+    "b            vvvvv  ",
+    "b     v     vvvvvvv ",
+    "b    vvv       t    ",
+    "b   vvvvv      t    ",
+    "b     t        t    ",
+    "bp    t        t    ",
+    "bggggggaaaaaaaaggggg",],//l-14
+[   "                    ",
+    "                    ",
+    "                    ",
+    "                   p",
+    "             gaaaaag",
+    "             ddddddd",
+    "aaaaaaagg       dddd",
+    "ddddddddd           ",
+    "dddddddd            ",
+    "dddddd              ",
+    "dddd                ",
+    "dd                  ",
+    "d                   ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "     ssss  ssss     ",
+    "   ssggggggggggsss  ",
+    "sssggddddddddddgggsP",
+    "gggdddddddddddddddgg",],//l-15
+[   "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "         g          ",
+    "         d          ",
+    "         d s        ",
+    "       g d g        ",
+    "       d d d s      ",
+    "       d d d g      ",
+    "     g d d d d      ",
+    "     d d d d d      ",
+    "     d d d d d g    ",
+    "   g d d d d d d    ",
+    "   daaaaaaaaaaad    ",
+    "   daaaaaaaaaaad    ",
+    " p daaaaaaaaaaads  P",
+    "gggdaaaaaaaaaaadgggg",],//l-16
+[   "                    ",
+    "                    ",
+    "                    ",
+    "          P         ",
+    "          g         ",
+    "                    ",
+    "                    ",
+    "         ggg        ",
+    "                    ",
+    "                    ",
+    "        ggggg       ",
+    "                    ",
+    "                    ",
+    "       ggggggg      ",
+    "                    ",
+    "                    ",
+    "      ggggggggg     ",
+    "                    ",
+    " p                  ",
+    "ggaaaaaaaaaaaaaaaaag",],//l-17
+[   "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "          rr        ",
+    "        srrrrs      ",
+    "       srrrrrrr     ",
+    "      rrrrrrrrrs    ",
+    "     srrrrrrrrrrs   ",
+    " p rrrrrrrrrrrrrrr P",
+    "rrrrrrrrrrrrrrrrrrrr",],//l-18
+[   "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "p                  P",
+    "rWWWWWWWWWWWWWWWWWWr",
+    "rWWWWWWWWWWWWWWWWWrr",
+    "rrrWWWWWWWWWWWWWrrrr",
+    "rrrrrrrrrrrrrrrrrrrr",],//l-19
+[   "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "p                   ",
+    "r                   ",
+    "rWWWWWWWWWWWWWWWWWWr",
+    "WWWWWWWWWWWWWWWWWWWW",
+    "WWWWWWWWWWWWWWWWWWWW",
+    "WWWWWWWWWWWWWWWWWWWW",
+    "WWWWWWWWWWWWWWWWWWWW",
+    "WWWWWWWWWWWWWWWWWWWW",
+    "WWWWWWWWWWWWWWWWWWWW",
+    "WWWWWWWWWWWWWWWWWWWW",
+    "WWWWWWWWWWWWWWWWWWWW",
+    "WWWWWWWWWWWWWWWWWWWW",
+    "WWWWWWWWWWWWWWWWWWWW",
+    "rWWWWWWWWWWWWWWWWWrr",
+    "rrrWWWWWWWWWWWWW  Pr",
+    "rrrrrrrrrrrrrrrrrrrr",],//l-20
+[   "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                   P",
+    "                   r",
+    "            r       ",
+    "               lllll",
+    "               lrrrr",
+    "          r  lllrrrr",
+    "             lrrrrrr",
+    "             lrrrrrr",
+    "      r      lrrrrrr",
+    "             lrrrrrr",
+    "             lrrrrrr",
+    "             lrrrrrr",
+    "prrrllllllllllrrrrrr",
+    "rrrrrrrrrrrrrrrrrrrr",],//l-21
+[   "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                   P",
+    "            nnnnnnnn",
+    "       rrrrrrrrrrrrr",
+    "prrrrrrrrrrrrrrrrrrr",
+    "rrrrrrrrrrrrrrrrrrrr",],//l-22
+[   "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                 Pss",
+    "           nnnnnnnnn",
+    "             rrrrrrr",
+    "               rrrrr",
+    "WWWWn             rr",
+    "WWWrr               ",
+    "rrrr                ",
+    "                    ",
+    "       nnnssssssssss",
+    "pnnnnnnrrrrrrrrrrrrr",
+    "rrrrrrrrrrrrrrrrrrrr",],//l-23
+[   "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "   p                ",
+    "WWnn                ",
+    "rrr                 ",
+    "                    ",
+    "                    ",
+    "       wwwwwwwwwwww ",
+    "     wwwwwwwwwwwwwww",
+    "       t           t",
+    "       t           t",
+    "       t           t",
+    "       t     s     t",
+    "             t     t",
+    "   ss        t     P",
+    "nnnnnnnnwwwwwwwwwwww",],//l-24
+[   "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "              sss  P",
+    "            wwwwwwww",
+    "                   t",
+    "                   t",
+    "      Ts           t",
+    "      wwww         t",
+    "                   t",
+    "                   t",
+    "                   t",
+    "                   t",
+    "                   t",
+    "             Tssssst",
+    "            wwwwwwwt",
+    "                   t",
+    "p                  t",
+    "wwwwwwwwwwwwwwwwwwww",],//l-25
+[   "                    ",
+    "                    ",
+    "   p                ",
+    " ttttt b   b rrrrr  ",
+    "   t   b   b r      ",
+    "   t   bbbbb rrrr   ",
+    "   t   b   b r      ",
+    "   t   b   b rrrrr  ",
+    "                    ",
+    "  nnnnn l   l aaaa  ",
+    "  n     ll  l aWWWa ",
+    "  nnnn  l l l aWPWa ",
+    "  n     l  ll aWWWa ",
+    "  nnnnn l   l aaaa  ",
+    "                    ",
+    "v                   ",
+    "vv   nnnnnnnnnn     ",
+    "t  TrrrrrrrrrrrrT   ",
+    "t  rrrrrrrrrrrrrrr  ",
+    "rrrrrrrrrrrrrrrrrrrr",],//the end
+
+];
+
+//An Object Display Function That Displays An Array
+var objectDisplay = function(object) {
+
+    for(var i in object) {
+
+        object[i].draw();
+
+    }
+
+};
+
+//Rect Collision Function
+var rectCollide = function(x, y, w, h, collX, collY, collW, collH) {
+
+    if(collX + collW > x && collX < x + w && collY + collH > y && collY < y + h) {
+
+        return true;
+
+    }
+
+};
+
+//Player Object
+var player = function(x,y) {
+
+    //Object variables
+    this.x = x;
+    this.y = y;
+    this.vel = 0;
+    this.gravity = 0;
+
+};
+player.prototype.draw = function() {
+
+    //Player graphics
+
+    //Body
+    fill(252, 210, 161);
+    rect(this.x,this.y,20,20);
+
+    //Clothes
+    fill(255, 255, 255);
+    rect(this.x,this.y+12,20,8);
+    fill(0, 0, 0);
+    rect(this.x,this.y+12,20,2);
+    rect(this.x,this.y+16,20,2);
+    //Hair
+    fill(0, 0, 0);
+    rect(this.x,this.y,20,2);
+    //Eyes
+    fill(255, 255, 255);
+    //Left
+    ellipse(this.x+7,this.y+7,5,5);
+    //Right
+    ellipse(this.x+13,this.y+7,5,5);
+    //Eyes
+    fill(0, 0, 0);
+    //Left
+    ellipse(this.x+7+this.vel,this.y+7+constrain(this.gravity,-5,5),3,3);
+    //Right
+    ellipse(this.x+13+this.vel,this.y+7+constrain(this.gravity,-5,5),3,3);
+
+
+//Physics
+
+//Applies and constrains velocity and gravity
+this.y += this.gravity;
+this.gravity += 0.1;
+
+this.x += round(this.vel);
+this.vel = constrain(this.vel, -3, 3);
+
+    //Key Movements
+    if(keys[RIGHT]) {
+
+        this.vel+=0.3;
+
+    } if(keys[LEFT]) {
+
+        this.vel-=0.3;
+
+    }
+    if(keys[UP] && this.gravity === 0.1) {
+
+        this.gravity = -4;
+
+    }
+
+    //Puts the velocity back
+    if(this.vel > 0) {this.vel -= 0.1;}
+    if(this.vel < 0) {this.vel += 0.1;}
+
+        //Kills the player if they go to far down
+        if(this.y>400) {
+            this.x = spawnX;
+            this.y = spawnY;
+        }
+};
+var players = [
+    new player(spawnX,spawnY),
+];
+
+//Enemy Object
+var police = function(x,y) {
+
+    //Object Variables
+    this.x = x;
+    this.y = y;
+    this.speed = 1;
+    this.gravity = 0;
+
+};
+police.prototype.draw = function() {
+
+    //Graphics
+
+    //Body
+    fill(255, 225, 176);
+    rect(this.x,this.y,20,20);
+    fill(6, 16, 107);
+    rect(this.x,this.y,20,5);
+    fill(6, 16, 107);
+    rect(this.x,this.y+13,20,7);
+    fill(255, 230, 0);
+    rect(this.x+8,this.y+13,2,7);
+    //Eyes
+    fill(0, 0, 0);
+    //Left
+    rect(this.x+5+this.speed*5,this.y+7,4,2);
+    //Right
+    rect(this.x+11+this.speed*5,this.y+7,4,2);
+
+//Physics
+
+//Applies speed and gravity
+this.x+=this.speed;
+this.y+=this.gravity;
+this.gravity+=0.1;
+
+//Player collisions
+if(players[0].x+20>this.x&&players[0].x<this.x+20&&
+     players[0].y+20>this.y&&players[0].y<this.y+20) {
+
+        players[0].x = spawnX;
+        players[0].y = spawnY;
+        players[0].vel = 0;
+        players[0].gravity = 0;
+}
+
+//Block collisions
+for(var i in blocks) {
+
+if(this.x+20>blocks[i].x&&this.x<blocks[i].x+20&&
+   this.y+18>blocks[i].y&&this.y+2<blocks[i].y+20) {
+
+    if(this.y+20>blocks[i].y&&this.y+20<blocks[i].y+10&&
+                                         this.gravity>=0) {
+
+                this.y = blocks[i].y-20;
+                this.gravity = 0;
+
+    } if(this.y<blocks[i].y+20&&this.y>blocks[i].y+10&&
+                                         this.gravity<0) {
+
+                this.y = blocks[i].y+20;
+                this.gravity = 0.1;
+
+    }
+
+    if(this.y+18>blocks[i].y&&this.y<blocks[i].y+18){
+
+        if(this.x+20>blocks[i].x&&this.x+20<blocks[i].x+5) {
+
+            this.x =blocks[i].x-20;
+            this.speed=-1;
+
+        } if(this.x<blocks[i].x+20&&this.x>blocks[i].x+15) {
+
+            this.x = blocks[i].x+20;
+            this.speed=1;
+
+                }
+            }
+        }
+    }
+};
+
+//Block Object
+var block = function(x,y,t) {
+
+    //Object variables
+    this.x = x;
+    this.y = y;
+    this.t = t;
+    this.w = 20;
+    this.h = 20;
+
+};
+block.prototype.draw = function() {
+
+if(this.t==="Brick") {
+
+    //Brick Graphics
+    fill(148, 146, 148);
+    rect(this.x,this.y,20,22);
+
+    fill(255, 255, 255);
+    rect(this.x,this.y,2,10);
+    rect(this.x+10,this.y+10,2,10);
+    fill(213, 222, 213,125);
+    triangle(this.x+0,this.y+21,this.x+0,this.y+0,this.x+19,this.y+0);
+
+    for(var i = 0;i <2;i++) {
+        fill(255, 255, 255);
+        rect(this.x,this.y+i*9,20,2);
+
+    }
+}
+
+if(this.t==="Rock") {
+
+    //Rock Graphics
+    fill(79, 77, 79);
+    rect(this.x,this.y,20,20);
+
+    fill(51, 51, 51);
+    triangle(this.x,this.y,this.x+20,this.y,this.x+20,this.y+20);
+}
+
+if(this.t==="Leaf") {
+
+    //Leaf Graphics
+    fill(116, 217, 83);
+    rect(this.x,this.y,20,20);
+
+}
+
+if(this.t==="Dirt") {
+
+    //Dirt Graphics
+    fill(153, 117, 46);
+    rect(this.x,this.y,20,20);
+
+    fill(89, 59, 0);
+    triangle(this.x,this.y,this.x+20,this.y,this.x+20,this.y+20);
+
+}
+
+if(this.t==="Grass") {
+
+    //Grass Graphics
+    fill(153, 117, 46);
+    rect(this.x,this.y,20,20);
+
+    fill(89, 59, 0);
+    triangle(this.x,this.y,this.x+20,this.y,this.x+20,this.y+20);
+    fill(0, 133, 0);
+    triangle(this.x,this.y,this.x,this.y+7,this.x+10,this.y);
+    triangle(this.x+6,this.y,this.x+10,this.y+9,this.x+17,this.y);
+    triangle(this.x+11,this.y,this.x+20,this.y+8,this.x+20,this.y);
+}
+
+if(this.t==="Wood") {
+
+    //Wood Graphics
+    fill(189, 182, 51);
+    rect(this.x,this.y,20,5);
+
+    fill(214, 201, 54);
+    rect(this.x,this.y+5,20,5);
+
+    fill(189, 182, 51);
+    rect(this.x,this.y+10,20,5);
+
+    fill(214, 201, 54);
+    rect(this.x,this.y+15,20,5);
+        fill(250, 226, 147,125);
+    triangle(this.x+0,this.y+21,this.x+0,this.y+2,this.x+19,this.y+0);
+
+}
+
+if(this.t==="Log") {
+
+    //Log Graphics
+    fill(138, 109, 36);
+    rect(this.x,this.y,20,20);
+
+    fill(128, 95, 45);
+    rect(this.x+3,this.y,5,20);
+    rect(this.x+12,this.y,5,20);
+
+}
+
+if(this.t==="Normal") {
+
+    //Block Graphics
+    fill(255, 255, 255);
+    rect(this.x,this.y,20,20);
+
+    fill(214, 214, 214);
+    triangle(this.x,this.y,this.x+20,this.y,this.x+20,this.y+20);
+
+}
+
+//Player collsions
+if(rectCollide(this.x, this.y, this.w, this.h, players[0].x, players[0].y, 20, 20)) {
+
+        if(rectCollide(this.x + round(players[0].vel) + 1, this.y, this.w - (round(abs(players[0].vel)) + 1), this.h / 2, players[0].x, players[0].y, 20, 20)) {
+
+            players[0].gravity = 0;
+            players[0].y = this.y - 20;
+
+
+        }
+
+        if(rectCollide(this.x + round(players[0].vel) + 1, this.y + this.h / 2, this.w - (round(abs(players[0].vel)) + 1), this.h / 2, players[0].x, players[0].y, 20, 20)) {
+
+            players[0].gravity = 0.1;
+            players[0].y = this.y + this.h;
+
+        }
+
+
+        if(rectCollide(this.x, this.y + round(players[0].gravity) + 1, this.w / 2, this.h - (round(abs(players[0].gravity)) + 1), players[0].x, players[0].y, 20, 20)) {
+
+            players[0].vel = 0;
+            players[0].x = this.x - 20;
+
+        }
+        if(rectCollide(this.x + this.w / 2, this.y + round(players[0].gravity) + 1, this.w / 2, this.h - (round(abs(players[0].gravity)) + 1), players[0].x, players[0].y, 20, 20)) {
+
+            players[0].vel = 0;
+            players[0].x = this.x + this.w;
+
+        }
+
+    }
+
+
+};
+
+//Blocks that can hurt you, lava, acid, spikes, etc,.
+var deathBlock = function(x,y,t) {
+
+    //Object variables
+    this.x = x;
+    this.y = y;
+    this.t = t;
+
+};
+deathBlock.prototype.draw = function() {
+
+if(this.t==="Lava") {
+
+    //Lava Graphics
+    fill(217, 35, 35);
+    rect(this.x,this.y,20,20);
+
+}
+
+if(this.t==="Spike") {
+
+    //Spike Graphics
+    fill(184, 184, 184);
+    triangle(this.x,this.y+20,this.x+11,this.y,this.x+20,this.y+20);
+        fill(138, 138, 138);
+    triangle(this.x+7,this.y+20,this.x+11,this.y,this.x+20,this.y+20);
+
+}
+
+if(this.t==="Acid") {
+
+    //Acid Graphics
+    fill(23, 173, 0);
+    rect(this.x,this.y,20,20);
+
+}
+
+//Player collisions
+if(players[0].x+20>this.x&&players[0].x<this.x+20&&
+     players[0].y+18>this.y&&players[0].y<this.y+20) {
+
+        players[0].x = spawnX;
+        players[0].y = spawnY;
+        players[0].vel = 0;
+        players[0].gravity = 0;
+
+    }
+};
+
+//Blocks that have their own special mods, portals, water etc,.
+var physicBlock = function(x,y,t) {
+
+    //Object variables
+    this.x = x;
+    this.y = y;
+    this.t = t;
+
+};
+physicBlock.prototype.draw = function() {
+
+if(this.t==="Trampoline") {
+
+    //Trampoline Graphics
+    fill(36, 36, 36);
+    rect(this.x,this.y+18,20,2);
+
+    fill(255, 238, 0);
+    quad(this.x+4,this.y+5,this.x,this.y+5,this.x+16,this.y+18,this.x+20,this.y+18);
+    quad(this.x+20,this.y+5,this.x+16,this.y+5,this.x,this.y+18,this.x+5,this.y+18);
+
+    fill(8, 8, 8);
+    rect(this.x,this.y,20,5);
+
+
+
+//Player collisions
+if(players[0].x+20>this.x&&players[0].x<this.x+20&&
+     players[0].y+20>this.y&&players[0].y<this.y+20){
+
+    if(players[0].y+20>this.y&&players[0].y+20<this.y+10&&
+                                     players[0].gravity>=0) {
+
+                    players[0].y = this.y-20;
+                    players[0].gravity = -5;
+
+    } if(players[0].y<this.y+20&&players[0].y>this.y + 10&&
+                                     players[0].gravity<0) {
+
+                    players[0].y = this.y + 20;
+                    players[0].gravity = 0.1;
+
+    }
+
+    if(players[0].y+18>this.y&&players[0].y<this.y+18){
+
+        if(players[0].x+20>this.x&&players[0].x+20<this.x+5) {
+
+                players[0].vel = 0;
+                players[0].x = this.x-20;
+
+        }
+
+        if(players[0].x<this.x+20&&players[0].x>this.x+15) {
+
+                players[0].vel = 0;
+                players[0].x = this.x+20;
+
+            }
+        }
+    }
+}
+
+if(this.t==="Water") {
+
+    //Water graphics
+    fill(0, 155, 155, 100);
+    rect(this.x,this.y,20,20);
+
+//Player Collisions
+if(players[0].x+20>this.x&&players[0].x<this.x+20&&
+     players[0].y+19>this.y&&players[0].y<this.y+20){
+
+            if(keys[UP]) {players[0].gravity=-5;}
+            players[0].vel = constrain(players[0].vel,-1,2);
+            players[0].gravity=constrain(players[0].gravity,-1,0.5);
+    }
+}
+
+if(this.t==="Portal") {
+
+    //Portal Graphics
+    fill(143, 42, 8);
+    rect(this.x,this.y,20,20);
+    fill(156, 44, 6);
+    rect(this.x+3,this.y+3,15,15);
+//Player collisions
+if(players[0].x+20>this.x&&players[0].x<this.x+20&&
+     players[0].y+20>this.y&&players[0].y<this.y+20) {
+
+    I=0;
+    level++;
+    for(var i in blocks) {
+        delete blocks[i];
+            }
+        }
+    }
+
+};
+
+//Loads The Level
+var loadLevel = function() {
+
+for(var x = 0;x < levels[level].length;x++) {
+    for(var y = 0;y < levels[level][x].length;y++) {
+
+    switch(levels[level][y][x]) {
+
+        case "b":
+
+        blocks.push(new block(x*20,y*20,"Brick"));
+
+        break;
+        case "r":
+
+        blocks.push(new block(x*20,y*20,"Rock"));
+
+        break;
+        case "d":
+
+        blocks.push(new block(x*20,y*20,"Dirt"));
+
+        break;
+        case "g":
+
+        blocks.push(new block(x*20,y*20,"Grass"));
+
+        break;
+        case "w":
+
+        blocks.push(new block(x*20,y*20,"Wood"));
+
+        break;
+        case "t":
+
+        blocks.push(new block(x*20,y*20,"Log"));
+
+        break;
+        case "v":
+
+        blocks.push(new block(x*20,y*20,"Leaf"));
+
+        break;
+        case "n":
+
+        blocks.push(new block(x*20,y*20,"Normal"));
+
+        break;
+        case "l":
+
+        blocks.push(new deathBlock(x*20,y*20,"Lava"));
+
+        break;
+        case "a":
+
+        blocks.push(new deathBlock(x*20,y*20,"Acid"));
+
+        break;
+        case "s":
+
+        blocks.push(new deathBlock(x*20,y*20,"Spike"));
+
+        break;
+        case "T":
+
+        blocks.push(new physicBlock(x*20,y*20,"Trampoline"));
+
+        break;
+        case "W":
+
+        blocks.push(new physicBlock(x*20,y*20,"Water"));
+
+        break;
+        case "P":
+
+        blocks.push(new physicBlock(x*20,y*20,"Portal"));
+
+        break;
+        case "e":
+
+        blocks.push(new police(x*20,y*20));
+
+        break;
+        case "p":
+
+        spawnX = x*20;
+        spawnY = y*20;
+        players[0].x=spawnX;
+        players[0].y=spawnY;
+
+        break;
+
+            }
+        }
+    }
+};
+
+noStroke();
+textAlign(CENTER,CENTER);
+
+keyPressed = function() {
+    keys[keyCode] = true;
+};
+
+keyReleased = function() {
+    keys[keyCode] = false;
+};
+
+draw = function() {
+
+var loadLevel = function() {
+
+for(var x = 0;x < levels[level].length;x++) {
+    for(var y = 0;y < levels[level][x].length;y++) {
+
+    switch(levels[level][y][x]) {
+
+        case "b":
+
+        blocks.push(new block(x*20,y*20,"Brick"));
+
+        break;
+        case "r":
+
+        blocks.push(new block(x*20,y*20,"Rock"));
+
+        break;
+        case "d":
+
+        blocks.push(new block(x*20,y*20,"Dirt"));
+
+        break;
+        case "g":
+
+        blocks.push(new block(x*20,y*20,"Grass"));
+
+        break;
+        case "w":
+
+        blocks.push(new block(x*20,y*20,"Wood"));
+
+        break;
+        case "t":
+
+        blocks.push(new block(x*20,y*20,"Log"));
+
+        break;
+        case "v":
+
+        blocks.push(new block(x*20,y*20,"Leaf"));
+
+        break;
+        case "n":
+
+        blocks.push(new block(x*20,y*20,"Normal"));
+
+        break;
+        case "l":
+
+        blocks.push(new deathBlock(x*20,y*20,"Lava"));
+
+        break;
+        case "a":
+
+        blocks.push(new deathBlock(x*20,y*20,"Acid"));
+
+        break;
+        case "s":
+
+        blocks.push(new deathBlock(x*20,y*20,"Spike"));
+
+        break;
+        case "T":
+
+        blocks.push(new physicBlock(x*20,y*20,"Trampoline"));
+
+        break;
+        case "W":
+
+        blocks.push(new physicBlock(x*20,y*20,"Water"));
+
+        break;
+        case "P":
+
+        blocks.push(new physicBlock(x*20,y*20,"Portal"));
+
+        break;
+        case "e":
+
+        blocks.push(new police(x*20,y*20));
+
+        break;
+        case "p":
+
+        spawnX = x*20;
+        spawnY = y*20;
+        players[0].x=spawnX;
+        players[0].y=spawnY;
+
+        break;
+
+            }
+        }
+    }
+};
+var loadClouds = function() {
+
+    for(var i = 0;i < 10;i++) {
+
+        clouds.push(new cloud(random(-100,400),random(0,200)));
+
+    }
+
+};
+var loadSun = function() {
+
+    //Graphics
+    fill(230, 230, 230);
+    ellipse(50,50,sunSize+20,sunSize+20);
+
+    fill(255, 255, 255);
+    ellipse(50,50,sunSize,sunSize);
+
+    //Changes the size
+    if(sunSize>90) {sunSpeed=-0.05;}
+    if(sunSize<80) {sunSpeed=0.05;}
+    sunSize+=sunSpeed;
+
+};
+var cloud = function(x,y) {
+
+    //Object variables
+    this.x = x;
+    this.y = y;
+    this.speed = random(0.1,0.4);
+
+};
+cloud.prototype.draw = function() {
+
+    //Graphics
+
+    fill(171, 171, 171,230);
+    //Bottom cloud
+    rect(this.x,this.y,100,30);
+    //Top cloud
+    rect(this.x+10,this.y-30,80,30);
+
+    //Physics
+
+    //Apply's Speed
+    this.x+=this.speed;
+    if(this.x>400) {
+
+        this.x=-100;
+        this.y=random(0,200);
+        this.speed=random(0.1,0.4);
+
+    }
+
+};
+switch(page) {
+
+//This scene is credits, do not remove or you will be flagged.
+case "Intro":
+
+    //Background Color
+    background(182, 182, 186);
+
+    //Text Credits
+    fill(0, 0, 0);
+    textSize(41);
+    textFont(createFont("Impact"));
+    text("Escape \nThe Prison",200,200);
+    textSize(27);
+    text("Huge credit to \nCheesy Monster",200,293);
+
+    //Implements the fade
+    fade+=fadeSpeed;
+
+
+    if(frameCount>20) {fadeSpeed=2;}
+    if(fade>=400) {page="Game";}
+
+    //Fills the screen with a rect for fading
+    fill(255, 255, 255,fade);
+    rect(0,0,400,400);
+
+break;
+case "Game":
+    //Background Color
+    background(0, 31, 153);
+    fill(255, 242, 0);
+    ellipse(random(0,360),random(0,360),5,5);
+    ellipse(random(0,360),random(0,360),5,5);
+    ellipse(random(0,360),random(0,360),5,5);
+    ellipse(random(0,360),random(0,360),5,5);
+    ellipse(random(0,360),random(0,360),5,5);
+
+
+    while(I<1) {I++;loadLevel();}
+    while(J<1) {J++;loadClouds();}
+
+
+    players[0].draw();
+    objectDisplay(blocks);
+    //Deletes the enemys if they go too far off the screen
+    for(var i in blocks) {
+
+        if(blocks[i].y>420) {delete blocks[i];}
+
+    }
+
+    //Restarts level
+    if(keys[82]) {
+        for(var i in blocks) {
+            delete blocks[i];}
+            players[0].gravity=0.1;
+            players[0].vel=0;
+            I=0;
+    }
+
+
+//Adds text to the end of the array
+if(level===1) {
+fill(0, 0, 0);
+text("",200,200);
+}
+
+    //This is credits, Do not remove or you will be flagged.
+    //Unfades the screen
+    fill(255, 255, 255,fade);
+    rect(0,0,400,400);
+    fade+=fadeSpeed;
+    fadeSpeed=-2;
+    if(fade<=0) {fadeSpeed = 0;}
+
+break;
+
+
+    }
+};
+
+}
