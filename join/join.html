@@ -1,0 +1,185 @@
+<!doctype html>
+ <head>
+  <meta charset="UTF-8">
+  <title>회원가입</title>
+  <style>
+    #border1{
+      border-bottom:solid 3px navy;
+    }
+    #border2{
+      border-bottom: solid 1px black;
+    }
+    .join{
+      background-color: #FFFFFF;
+      border: solid 1px #aaaaaa;
+      border-radius:10px;
+      padding:20px;
+      padding-top: 0px;
+    }
+    body{
+      background-color: #F6F6F6;
+    }
+    span {
+      font-size: 0.8em;
+    }
+  </style>
+
+  <script language="JavaScript">
+    function checkid() {
+      var id_len = my_form.input_ID.value.length
+      if (id_len >= 1){
+        myWindow = window.open("checkid.html", "tinyWindow", 'width=300, height=150');
+      } else {
+        alert("ID를 입력해주세요.")
+      }
+    }
+
+    function checkinfo() {
+      var str1 = my_form.input_Pass.value
+      var str2 = my_form.input_PWcheck.value
+      var id_len = my_form.input_ID.value.length
+      var ch_name = my_form.input_Name.value.length
+      var pass_len = my_form.input_Pass.value.length
+      var ch_pass = my_form.input_PWcheck.value.length
+      var ch_phone1 = my_form.input_Phone1.value.length
+      var ch_phone2 = my_form.input_Phone2.value.length
+      var ch_phone3 = my_form.input_Phone3.value.length
+      var ch_email = my_form.Email_input.value.length
+
+      if ((id_len >= 1) && (ch_name >= 1) && (pass_len >= 1) && (ch_pass >= 1) && (ch_phone1 >= 1) && (ch_phone2 >= 1) && (ch_phone3 >= 1) && (ch_email >= 1)) {
+        if (my_form.agree[0].checked) {
+          if (str1 == str2) {
+            if ((id_len >= 5) && (id_len <= 10)) {
+              if ((pass_len >= 8) && (pass_len <= 20)) {
+                alert("회원가입 완료했습니다.")
+              } else {
+                alert("8~20자 사이의 암호 만유효합니다.")
+                 my_form.input_Pass.value = ""
+                 my_form.input_Pass.focus()
+               }
+             } else {
+              alert("5~10자 사이의 ID만 유효합니다.")
+              my_form.input_ID.value = ""
+              my_form.input_ID.focus()
+            }
+          } else {
+            alert("비밀번호 틀립니다.")
+            my_form.input_PWcheck.value = ""
+            my_form.input_PWcheck.focus()
+          }
+        } else {
+          alert("회원약관에 동의해주세요.")
+        }
+      } else {
+        alert("체크된 필수 입력 항목을 모두 입력해주세요.")
+      }
+    }
+  </script>
+
+ </head>
+ <body>
+ <form name="my_form">
+  <table align="center" class="join">
+  <thead>
+  <tr>
+  <td>
+  <h2 colspan="2">※ 회원가입 약관</h2>
+  </td>
+  </tr>
+  <tr>
+  <td colspan="2">
+  <p align="center"><iframe src="iframe.html" scrolling="yes" width="700" height="300" frameborder="1" align="center"></iframe></p>
+  </td>
+  </tr>
+  <tr>
+  <td colspan="2" align="right"><input type="radio" name="agree" value="동의합니다">동의합니다. <input type="radio" name="agree" value="동의하지 않습니다" checked="on">동의하지 않습니다.</td>
+  </tr>
+  </thead>
+  <tbody >
+  <tr>
+  <td colspan="2"><img src="Lotte.png" width="20" height="20">&nbsp&nbsp<b>회원 가입신청</b><br></td>
+  </tr>
+  <tr>
+  <td id="border1" colspan="2"></td>
+  </tr>
+  <td align="right"><img src="check.jpg" width="15" height="15"><span>회원아이디</span></td><td><input type="text" name="input_ID" size="20" maxlength="10">&nbsp<button type="button" name="check" onclick="checkid()"><span>중복아이디 검색</span></button>&nbsp<span>(5~10자의 영소대문자,숫자만 가능합니다.)</span></td>
+  </tr>
+  <tr>
+  <td id="border2" colspan="2"></td>
+  </tr>
+  <tr>
+  <td align="right"><img src="check.jpg" width="15" height="15"><span>회원이름</span></td><td><input type="text" name="input_Name" size="20"></td>
+  </tr>
+  <tr>
+  <td id="border2" colspan="2"></td>
+  </tr>
+  <tr>
+  <td align="right"><img src="check.jpg" width="15" height="15"><span>비밀번호</span></td><td><input type="password" name="input_Pass" size="20" maxlength="20"><span> (8~20자의 영문대소문자, 숫자, 특수문자만 가능합니다.)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span></td>
+  </tr>
+  <tr>
+  <td id="border2" colspan="2"></td>
+  </tr>
+  <tr>
+  <td align="right">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<img src="check.jpg" width="15" height="15"><span>비밀번호 확인</span></td><td><input type="password" name="input_PWcheck" size="20" maxlength="20"></td>
+  </tr>
+  <td id="border2" colspan="2"></td>
+  <tr>
+  <td align="right">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span>생년월일</span></td><td><input type="password" name="input_Birth" size="20" maxlength="20"></td>
+  </tr>
+  <tr>
+  <td id="border2" colspan="2"></td>
+  </tr>
+  <tr>
+  <td align="right"><span>전화번호</span></td><td><input type="text" name="input_Call1" size="3">-<input type="text" name="input_Call2" size="4">-<input type="text" name="input_Call3" size="4"></td>
+  </tr>
+  <tr>
+  <td id="border2" colspan="2"></td>
+  </tr>
+  <tr>
+  <td align="right"><img src="check.jpg" width="15" height="15"><span>핸드폰번호</span></td><td><input type="text" name="input_Phone1" size="3">-<input type="text" name="input_Phone2" size="4">-<input type="text" name="input_Phone3" size="4"></td>
+  </tr>
+  <tr>
+  <td id="border2" colspan="2"></td>
+  </tr>
+  <tr>
+  <td align="right"><img src="check.jpg" width="15" height="15"><span>이메일주소</span></td>
+  <td><input type="text" name="Email_input">
+  @&nbsp<select name="Domain">
+  <option>선택</option>
+  <option>naver.com</option>
+  <option>hanmail.net</option>
+  <option>gmail.com</option>
+  <option>직접입력</option>
+  </select></td><br>
+  </tr>
+  <tr>
+  <td id="border2" colspan="2"></td>
+  </tr>
+  <tr>
+  <td align="right"><span>우편번호</span></td><td><input type="text" name="input_Zip" size="20"></td>
+  </tr>
+  <tr>
+  <td id="border2" colspan="2"></td>
+  </tr>
+  <tr>
+  <td align="right"><span>주소</span></td><td><input type="text" name="input_Adress" size="40">&nbsp<button type="button" name="adress_check"><span>주소 검색</span></button></td>
+  </tr>
+  <tr>
+  <td id="border2" colspan="2"></td>
+  </tr>
+  <tr>
+  <td align="right"><span>상세주소</span></td><td><input type="text" name="input_other" size="40"></td>
+  </tr>
+  <tr>
+  <td id="border2" colspan="2"></td>
+  </tr>
+  </tbody>
+  <tfoot>
+  <tr>
+  <td colspan="2" align="center"><button type="button" name="complete" onclick="checkinfo()"><span>회원가입</span></button></td>
+  </tr>
+  </tfoot>
+  </table>
+  </form>
+ </body>
+</html>

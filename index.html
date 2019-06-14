@@ -1,76 +1,428 @@
-
-<!doctype html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="nl">
 <head>
-  <title>WEB1 - Welcome</title>
-  <meta charset="utf-8">
+	<meta charset="utf-8" />
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta name="Generator" content="EditPlus®">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<meta name="author" content="" />
+	<meta name="copyright" content="" />
+	<meta name="robots" content="index, follow" />
+	<meta name="language" content="nl" />
+	<meta name="revisit-after" content="15 days" />
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-138314009-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+	<link rel="stylesheet" href="core.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css" />
+	<link rel="stylesheet" type="text/css" href="css/elastislide.css" />
 
-  gtag('config', 'UA-138314009-1');
+	<title>Main</title>
+
+	<style type="text/css">
+
+		header div {
+			width: 900px; height: 100px; background-color: white; margin: auto;
+			border: solid 1px #FAFAFA;
+		}
+		.floatright {
+			float: right;
+		}
+		.join{
+			background-color: #FFFFFF;
+			border-radius:10px;
+			padding:25px
+
+		}
+		a { text-decoration:none }
+
+		header { background-image:url("img/Back.jpg");}
+
+		#back{
+			background-color: #FFFFFF;
+			border: double 10px #045FB4;
+			border-radius:10px;
+			padding:25px
+		}
+		#ticket{
+			background-image: url('img/Ticket.jpg');
+			width: 50;
+			height: 10;
+		}
+
+		.now_movie {
+			margin: 0 auto;
+			width: 1100px;
+		}
+
+		.contents {
+			margin: 0 auto;
+			width: 1200px;
+		}
+
+		.article {
+			float: left;
+			position: relative;
+			width: 290px;
+			margin: 43px;
+		}
+		.article2 {
+			float: left;
+			position: relative;
+			width: 360px;
+			margin: 43px;
+		}
+		h2 {
+			border-bottom: solid 1px #e1e1e1;
+			padding-bottom: 15px;
+		}
+		li {
+			list-style: none;
+		}
+		.article > h2 {
+			color: #585858;
+			margin-bottom: 10px;
+		}
+		.article > ul li{
+			padding: 11px 0;
+			border-bottom: solid 1px #e1e1e1;
+			height: 50px;
+		}
+		.article ul li a > img{
+			display: block;
+			float: left;
+			margin-right: 20px;
+		}
+		.article2 > h2 {
+			color: #585858;
+			margin-bottom: 10px;
+		}
+		.article2 > ul li { 
+			display: inline;
+		}
+		.article2 ul li img {
+			padding: 11px;
+			border: solid 1px #e1e1e1;
+		}
+		.footer{
+			clear: left;width: 1900px; height: auto; margin-bottom: 20px; margin-right: auto; margin-left: auto;background-color: rgb(226,226,226);
+		}	
+		.article3{
+			width: 220px;float: left; margin-left:50px; margin-top: 10px; margin-bottom: 20px; text-align:center;
+		}
+		.sectionfont{
+			margin-bottom: 8px;
+			font-weight: bold;
+		} 
+		.article4{
+			clear: left; text-align:left;
+		}
+		.article5{
+			text-align: right; float:right; display:inline;
+		}	
+		.lineset2{
+			display:inline; text-align: center;
+		}
+		.lineset{
+			display:inline; text-align: center;
+		}
+
+	</style>
+	<style type="text/css" media="screen">
+		
+		* { margin: 0; padding: 0; }
+		body { font: normal 12px arial; background: #fff;}
+		p { padding-bottom: 20px; }
+		a { color: black; }
+		.searchimg { margin-top: 5px; }
+		a:hover, a:visited:hover { color: black; }
+		
+		.slideshow { position: relative; background: #fafafa; width: 1900px; height: auto; margin-bottom: 20px; margin-right: auto; margin-left: auto;}
+		.slideshow img { z-index: -10; background: #fff; }
+		ul.recentlist { list-style: none; z-index: 2; }
+		ul.recentlist li { margin: 0; padding: 0; display: inline; }
+		ul.recentlist li a, ul.recentlist li a:visited { display: block; float: left; background: #e5e5e5; padding: 4px 8px; margin-right: 1px; text-decoration: none; cursor: pointer; }
+		ul.recentlist li a:hover, ul.recentlist li a:visited:hover { background: #666; color: #fff; }
+		ul.recentlist li a.current { background: #f00; color: #fff; }
+
+		.flexslider{height: auto; margin-bottom: 20px; margin-right: auto; margin-left: auto;
+
+		}
+		.slides{text-align:center;
+
+		}
+	</style>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+	<script src="jquery.tweetToEnter.js"></script>
+	<script type="text/javascript" src="jquery.js" charset="utf-8"></script>
+	<script src="js/modernizr.custom.17475.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var imgWrapper = $('.slideshow > img');
+		// only show the first image, hide the rest
+		imgWrapper.hide().filter(':first').show();
+		
+		$('ul.recentlist li a').click(function () {
+
+			// check if this item doesn't have class "current"
+			// if it has class "current" it must not execute the script again
+			if (this.className.indexOf('current') == -1){
+				imgWrapper.hide();
+				imgWrapper.filter(this.hash).fadeIn(500);
+				$('ul.recentlist li a').removeClass('current');
+				$(this).addClass('current');
+			}
+			return false;
+		});
+	});
+
+			$(".flexslider")
+			.fitVids()
+			.flexslider({
+				animation: "slide",
+				useCSS: false,
+				animationLoop: false,
+				smoothHeight: true,
+				before: function(slider){
+					$f(player).api('pause');
+				}
+			});
+	
 </script>
-<link rel="stylesheet" href="style.css">
-
 </head>
 <body>
-  <h1><a href="index.html">WEB</a></h1>
-    <div id="grid">
-  <ol>
-    <li><a href="1.html">HTML</a></li>
-    <li><a href="2.html">CSS</a></li>
-    <li><a href="3.html">JavaScript</a></li>
-    <li><a href="game.html">game</a></li>
-  </ol>
+	<header>
+		<div class="headmenu">
+			<a href= "join/join.html"><img src="img/singOn.png" width="50" height="50" style="float: right; margin-right: 20px"></a>
+			<a href= "html/login.html"><img src="img/login.png" width="50" height="50" style="float: right;"></a>
+			<a href= "index.html"><img src="img/dawoon cinema.jpg"  width="200" height="auto" style="float:left; margin-top: 5px; margin-right: 90px;"></a>
+			<input type ="text" size="40" style="border: solid 2px red; float:left; margin: 10px; padding: 5px"><a href="#"><img src="img/serch.jpg" width="40" height="40" class="searchimg"></a>
+			<a style="clear: both"/></a>
+			<div class="nav_exmaple">
+				<nav>
+					<ul>
+						<li><a href="#">예매</a></li>
+						<li><a>|</a></li>
+						<li><a href= "movie/movie.html">영화</a>
+							<ul>
+								<li><a href="">영화목록</a></li>
+								<li><a href="">평점/리뷰</a></li>
+							</ul>
+						</li>
+						<li><a>|</a></li>
+						<li><a href="#">영화관</a></li>
+						<li><a>|</a></li>
+						<li><a href="#">이벤트</a></li>
+						<li><a>|</a></li>
+						<li><a href="#">게시판</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</header>
 
-  <div id="article">
-  <h2>WEB</h2>
-  <p>The World Wide Web (abbreviated WWW or the Web) is an information space where documents and other web resources are identified by Uniform Resource Locators (URLs), interlinked by hypertext links, and can be accessed via the Internet.[1] English scientist Tim Berners-Lee invented the World Wide Web in 1989. He wrote the first web browser computer program in 1990 while employed at CERN in Switzerland.[2][3] The Web browser was released outside of CERN in 1991, first to other research institutions starting in January 1991 and to the general public on the Internet in August 1991.
-  </p>  <p>
-  </div>
-  </div>
-      <div id="disqus_thread"></div>
-      <script>
+	<section>
 
-      /**
-      *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-      /*
-      var disqus_config = function () {
-      this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-      this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-      };
-      */
-      (function() { // DON'T EDIT BELOW THIS LINE
-      var d = document, s = d.createElement('script');
-      s.src = 'https://web1-0wnydirfpz.disqus.com/embed.js';
-      s.setAttribute('data-timestamp', +new Date());
-      (d.head || d.body).appendChild(s);
-      })();
-      </script>
-      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    </p>
+		<div class="slideshow">
+			<ul class="recentlist">
+				<li><a class="current" href="#slide1">1</a></li>
+				<li><a href="#slide2">2</a></li>
+				<li><a href="#slide3">3</a></li>
+			</ul>
+			<img id="slide1" src="img/event1.jpg" width="1900" height="600" alt="Image 1 slideshow" />
+			<img id="slide2" src="img/event2.jpg" width="1900" height="600" alt="Image 2 slideshow" />
+			<img id="slide3" src="img/event3.jpg" width="1900" height="600" alt="Image 3 slideshow" />
+		</div>
 
-  <p>
-    <!--Start of Tawk.to Script-->
-    <script type="text/javascript">
-    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-    (function(){
-    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-    s1.async=true;
-    s1.src='https://embed.tawk.to/5cb2a89ed6e05b735b427556/default';
-    s1.charset='UTF-8';
-    s1.setAttribute('crossorigin','*');
-    s0.parentNode.insertBefore(s1,s0);
-    })();
-    </script>
-    <!--End of Tawk.to Script-->
-  </p>
+		<div class="now_movie">
+			<h2>현재 상영중인 영화</h2>	
+			<div class="main">
+				<ul id="carousel" class="elastislide-list">
+					<li><a href="#"><img src="img/movie01.jpg" width="600" height="auto" alt="image01" /></a></li>
+					<li><a href="#"><img src="img/movie03.jpg" width="600" height="auto" alt="image03" /></a></li>
+					<li><a href="#"><img src="img/movie05.jpg" width="600" height="auto" alt="image05" /></a></li>
+					<li><a href="#"><img src="img/movie06.jpg" width="600" height="auto" alt="image06" /></a></li>
+					<li><a href="#"><img src="img/movie07.jpg" width="600" height="auto" alt="image07" /></a></li>
+					<li><a href="#"><img src="img/movie09.jpg" width="600" height="auto" alt="image09" /></a></li>
+					<li><a href="#"><img src="img/movie10.jpg" width="600" height="auto" alt="image10" /></a></li>
+				</ul>
+			</div>
+			<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+			<script type="text/javascript" src="js/jquerypp.custom.js"></script>
+			<script type="text/javascript" src="js/jquery.elastislide.js"></script>
+			<script type="text/javascript">
+
+				$( '#carousel' ).elastislide();
+
+			</script>
+		</div>
+		<div class="flexslider" >
+			<ul class="slides">
+				<li class="lineset">
+					<img src="SpiderManFarFromHome.jpg"  width="280" height="420" allowfullscreen>
+				</li>
+				<li class="lineset">
+					<iframe src="https://player.vimeo.com/video/311510437"  width="650" height="450" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+				</li>
+			</ul>
+		</div>		
 
 
-  </body>
-  </html>
+		<div class="section_add">
+			<div class="contents">
+				<div class="article">
+					<h2>공지사항</h2>
+					<ul>
+						<li><p><strong>서비스</strong><span>| 2019.06.14</span></p>
+							<a href="#">[공지] 카카오톡 연동 서비스 개시</a>
+						</li>
+						<li><p><strong>영화관</strong><span>| 2019.06.13</span></p>
+							<a href="#">[공지] VIP좌석 공지 사항</a>
+						</li>
+						<li><p><strong>영화관</strong><span>| 2019.06.13</span></p>
+							<a href="#">[공지] 새로운 영화관 오픈</a>
+						</li>
+						<li><p><strong>서비스</strong><span>| 2019.06.13</span></p>
+							<a href="#">[공지] SK텔레콤 시스템 점검</a>
+						</li>
+					</ul>
+				</div>
+				<div class="article">
+					<h2>할인카드</h2>
+					<ul>
+						<li>
+							<a href="#"><img src="img/img_main_01.png" width="80" height="45">
+								<p><strong>T멤버십 일반</strong><br>
+									<span>영화 2,000원 할인</span><br>(1일 5매)
+								</p>
+							</a>
+						</li>
+						<li>
+							<a href="#"><img src="img/lg_uplus.png" width="80" height="45">
+								<p><strong>LG U+</strong><br>
+									<span>영화 1,000원 현장 할인</span><br>(1일 5회/월 4회)
+								</p>
+							</a>
+						</li>
+						<li>
+							<a href="#"><img src="img/membershipcard.png" width="80" height="45">
+								<p><strong>중앙멤버십</strong><br>
+									<span>현장할인, 인터넷할인</span><br>(연 24회)
+								</p>
+							</a>
+						</li>
+						<li>
+							<a href="#"><img src="img/samsungcard.png" width="80" height="45">
+								<p><strong>삼성카드 3 v3</strong><br>
+									<span>현장할인, 인터넷할인</span><br>(일 1회, 월 1회, 연 12회 제공)
+								</p>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="article2">
+					<h2>고객센터</h2>
+					<ul>
+						<li>
+							<a href="#"><img src="img/answer1.png"></a>
+						</li>
+						<li>
+							<a href="#"><img src="img/answer2.png"></a>
+						</li>
+						<br/>
+						<li>
+							<a href="#"><img src="img/answer3.png"></a>
+						</li>
+						<li>
+							<a href="#"><img src="img/answer4.png"></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+	<div class=footer>
+		<div class=article3>		
+			<h3 class=sectionfont>회사소개</h3>
+			<ul> 						
+				<li>IR</li>
+				<li>채용정보	</li>
+				<li>오시는길</li>
+				<br>
+			</ul>
+		</div>
+		<div class=article3>			
+			<h3 class=sectionfont>광고관련</h3>
+			<ul>
+				<li>출점문의</li>
+				<li>광고, 프로모션</li>
+				<li>제휴문의</li>
+				<br>
+			</ul>						
+		</div>
+		<div class=article3>			
+			<h3 class=sectionfont>유의사항</h3>
+			<ul>
+				<li>개인정보처리방침</li>
+				<li>법적고지</li>
+				<li>이메일 무단수집</li>
+				<br>
+			</ul>						
+		</div>					
+		<div class=article3>		
+			<h3 class=sectionfont>윤리경영</h3>
+			<ul> 
+				<li>윤리강령</li>
+				<li>상생경영</li>
+				<br>
+				<br>
+			</ul>						
+		</div>
+		<div class=article3>	
+			<h3 class=sectionfont>계열사</h3>
+			<ul> 
+				<li>다운식품</li>
+				<li>다운캐미컬</li>
+				<li>다운누리</li>
+				<br>
+			</ul>						
+		</div>	
+		<div class=article3>		
+			<h3 class=sectionfont>사이트맵</h3>
+			<ul> 
+				<li>영화</li>
+				<li>예매</li>
+				<li>영화관</li>
+				<li>게시판</li>		
+			</ul>
+		</div>
+		<div class=article4>
+			<hr color="black" size="2px">
+			<ul>
+				<li class=lineset2> 이용약관</li>
+				<li class=lineset2> |</li>
+				<li class=lineset2> 개인정보처리방침</li>
+				<li class=lineset2> |</li>
+				<li class=lineset2> 영상정보처리기기운영방침</li>
+				<br>
+				<li class=lineset2> (주)다운시네마 대표이사 다운이</li>
+				<li class=lineset2> |</li>
+				<li class=lineset2> 사업자등록번호 120-**-07029 </li>
+				<li class=lineset2> |</li>
+				<li class=lineset2> 통신판매업신고 제 2010-서울강남-컴퓨터</li>
+				<br>
+				<li class=lineset2> (주)서울시 강남구 봉은사로 99길 7</li>
+				<li class=lineset2> |</li>
+				<li class=lineset2> 고객센터 02-1577-0001 (09:00  - 18:00) </li>
+				<li class=lineset2> |</li>
+				<li class=lineset2> E-mail : jdw@dawooncinema.com</li>
+				<br>
+				<li class=lineset2> 호스팅사업자 : dawoonnetwork</li>
+				<br>
+				<li class=lineset2> ⓒ 2019. Dawoon Cinema. All rights reserved.</li>
+			</ul>	
+		</div>
+	</div>
+</body>
+</html>

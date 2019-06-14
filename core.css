@@ -1,0 +1,79 @@
+.nav_exmaple {
+    margin: 50px auto;
+}
+nav {
+     font-family: arial, sans-serif;
+     position: relative;
+     font-size:14px;
+     margin: 0px auto;
+     z-index: 100;
+}
+ 
+nav ul {
+     list-style-type: none;
+     font-size: 15px;
+}
+ 
+nav ul li {
+     float: left;
+     position: relative;
+     top:-35px;
+     margin-left: 11px;
+     margin-right: 11px;
+}
+ 
+nav ul li a {
+    text-align: center;
+    padding:0px 25px;
+    display:block;
+    text-decoration:none;
+    font-weight:bold;
+    margin:0px 1px;
+    position: relative;
+
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d1dfe8', endColorstr='#8ab9cd',GradientType=0 );
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	-moz-border-top-left-radius: 5px;
+	-moz-border-top-right-radius: 5px;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+}
+nav ul li:hover > a {
+	background:#FFF;
+	text-shadow:none;
+}
+nav ul li ul {
+     display: none
+}
+ 
+nav ul li:hover ul {
+     display: block;
+     position: absolute;
+     top:55px;
+     left: -58px;
+     padding:0;
+     margin:5;
+     width:auto;
+     border:0;
+}
+nav ul li:hover ul li a {
+     display:block;
+     background:#FFF;
+     text-align: center;
+     padding-top: 10px;
+     border: 1px solid #FAFAFA;
+     border-top: solid 1px #FAFAFA;
+     border-radius: 0;
+     -moz-border-radius: 0;
+     -webkit-border-radius: 0;
+     font-weight:normal;
+     width:120px;
+     height: 30px;
+
+}
+ 
+nav ul li:hover ul li a:hover, nav ul li a:hover {
+	background:#FFF;
+
+}

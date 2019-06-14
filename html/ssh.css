@@ -1,0 +1,14 @@
+ table{
+ background-color:white;
+ border: solid 2px gray;
+border-radius:3px;
+text-align:center;
+ }
+
+ .btn{
+ border-radius:10px;
+ }
+
+ body{background-color:#F6F6F6}
+
+ #right{border-right:solid 2px gray;}
